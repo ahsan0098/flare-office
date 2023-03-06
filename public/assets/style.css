@@ -1,0 +1,17 @@
+.chatmessage {
+    top: 58%;
+    /* height: 100px; */
+    width: 350px;
+    background-color: skyblue;
+    display: block;
+    position: absolute;
+    right: 40px;
+
+    transform: translateY(-50);
+    transition: 0.5s ease;
+}
+.anyClass {
+  height:300px;
+  overflow-y: scroll;
+  overflow-x:hidden;
+}
