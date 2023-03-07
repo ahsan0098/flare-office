@@ -15,7 +15,7 @@ class MarkAttendance extends Component
     {
         $verify = Randomizer::orderBy('id', 'DESC')->first();
         if ($this->code == $verify->code) {
-            $atndc = new Attendance;
+            $atndc = Attendance::where('date', date('y-m-d'))->firstOrNew(['employe_id' => session('u_id')]);
             $atndc->employe_id = session()->get('u_id');
             $atndc->date = date('y-m-d');
             $atndc->attendance = "present";
@@ -30,12 +30,12 @@ class MarkAttendance extends Component
     }
     public function loader()
     {
-        // $usr = User::find(session()->get('u_id'));
-        // $usr = $usr->
-        $t = date('y-m-d');
-        $atend = Attendance::where('employe_id', session()->get('u_id'))->where('date', $t)->first();
-        if (!$atend) {
+        $atend = Attendance::where('employe_id', session()->get('u_id'))->where('date', date('y-m-d'))->first();
+        if (!$atend || $atend->attendance == "absent") {
             $this->dispatchBrowserEvent('btn-show');
+        } else {
+            $this->dispatchBrowserEvent('btn-fade');
+            $this->emit('marked');
         }
     }
     public function mount()

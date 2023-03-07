@@ -111,7 +111,7 @@ class AdminEmploye extends Component
     }
     public function deleteEmp($id)
     {
-        $user = User::find($id);
+        $user = User::with('employe')->where('id', $id);
         if ($user->delete()) {
             $this->dispatchBrowserEvent('swal:add_employes', [
                 'icon' => "success",

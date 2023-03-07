@@ -46,8 +46,7 @@
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="btn btn-warning nav-link fade" data-toggle="modal"
-                        data-target="#attendace_modal" id="att_btn">Attedance
-                        mark</a>
+                        data-target="#attendace_modal" id="att_btn">Mark your Attendance</a>
                 </li>
             </ul>
 
@@ -361,9 +360,17 @@
             // alert('asdfs');
             window.livewire.emit('loader');
         });
+
         $(document).on('keyup', "#search_btn", function(e) {
             var txt = $(this).val();
             window.livewire.emit('search');
+        });
+        $(document).on('change', ".rdo", function(e) {
+            var valu = $(this).val();
+            var rdo = $(this).attr('data-id');
+            var id = $(this).attr('data-att');
+            // alert(id);
+            window.livewire.emit('radio_attendance', rdo, valu, id);
         });
         // $(document).on('keyup', "#search_attend", function(e) {
         //     var txt = $(this).val();
@@ -407,6 +414,10 @@
         window.addEventListener('btn-show', function(e) {
             // alert('alert done');
             $('#att_btn').removeClass('fade');
+        });
+        window.addEventListener('btn-fade', function(e) {
+            // alert('alert done');
+            $('#att_btn').addClass('fade');
         });
         window.addEventListener('swal:confirmDelete', function(e) {
             swal.fire(e.detail).then((result) => {

@@ -13,4 +13,7 @@ class Attendance extends Model
     {
         return $this->belongsTo(User::class, 'employe_id');
     }
+    protected $fillable = [
+        'employe_id'
+    ];
 }

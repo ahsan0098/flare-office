@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\DB;
 class AdminAttendance extends Component
 {
     public $current;
+    public $radio;
     public $option;
     public $search;
-    public $random = "sadss";
+    public $random;
     public $total;
-    protected $listeners = ['marked' => 'marked', 'search_attend' => 'search_attend'];
+    public $test = [];
+    protected $listeners = ['marked' => 'marked', 'search_attend' => 'search_attend', 'radio_attendance' => 'radio_attendance'];
     public function mount()
     {
         // $t = time();
@@ -27,12 +29,43 @@ class AdminAttendance extends Component
         $this->total = Attendance::with('user')->where('date', date('y-m-d'))->get();
         $this->total = json_decode($this->total, true);
     }
+    public function radio_attendance($rdo, $valu, $id)
+    {
+        // $this->current = $valu;
+        $atndc = Attendance::find($id);
+        if ($atndc) {
+            $atndc->id = $id;
+            $atndc->employe_id = $rdo;
+            $atndc->date = date('y-m-d');
+            $atndc->attendance = $valu;
+            $atndc->attendance_code = $this->random;
+            if ($atndc->save()) {
+                $this->marked();
+            }
+        } else {
+            $this->current = "edfsdfd";
+        }
+    }
+    public function Initiate()
+    {
+        $user = User::where('id', '!=', session('u_id'))->get();
+        foreach ($user as $usr) {
+            $atndc = Attendance::where('employe_id', $usr->id)->where('date', date('y-m-d'))->first();
+            if (!$atndc) {
+                $attend = new Attendance;
+                $attend->employe_id = $usr->id;
+                $attend->date = date('y-m-d');
+                $attend->attendance = "absent";
+                $attend->attendance_code = $this->random;
+                $attend->save();
+            }
+        }
+        $this->marked();
+    }
     public function marked()
     {
-        // $this->current = "marked";
         $this->total = Attendance::with('user')->where('date', date('y-m-d'))->get();
         $this->total = json_decode($this->total, true);
-        // $this->dispatchBrowserEvent('btn-show');
     }
     public function search_attend()
     {
@@ -62,11 +95,11 @@ class AdminAttendance extends Component
         } else {
         }
     }
-    public function update_attendance()
-    {
-        $this->total = Attendance::where('date', $this->search)->with('user')->get();
-        $this->total = json_decode($this->total, true);
-    }
+    // public function update_attendance()
+    // {
+    //     $this->total = Attendance::where('date', $this->search)->with('user')->get();
+    //     $this->total = json_decode($this->total, true);
+    // }
     public function randomize()
     {
         $code = rand(100000, 999999);

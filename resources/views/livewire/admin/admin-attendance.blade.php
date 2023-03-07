@@ -38,7 +38,7 @@
                         <div class="card-body table-responsive p-0" style="height: 300px;">
                             {{-- @php
                                 echo '<pre>';
-                                print_r($total);
+                                print_r($test);
                             @endphp --}}
                             <table class="table table-head-fixed text-nowrap">
                                 <thead>
@@ -48,7 +48,8 @@
                                         <th>Email</th>
                                         <th>Attendance</th>
                                         <th>Date</th>
-                                        <th><button type="button" class="btn btn-danger">Initiate Attendance</button>
+                                        <th><button type="button" class="btn btn-danger"
+                                                wire:click.prevent="Initiate">Initiate Attendance</button>
                                         </th>
                                     </tr>
                                 </thead>
@@ -64,6 +65,7 @@
                                                     {{-- @foreach ($tot['attendance'] as $att) --}}
                                                     <td><?= $tot['attendance'] == 'present' ? '<span class="bg-success p-1 rounded">' . $tot['attendance'] . '</span>' : '' ?>
                                                         <?= $tot['attendance'] == 'absent' ? '<span class="bg-danger p-1 rounded">' . $tot['attendance'] . '</span>' : '' ?>
+                                                        <?= $tot['attendance'] == 'leave' ? '<span class="bg-warning p-1 rounded">' . $tot['attendance'] . '</span>' : '' ?>
                                                     </td>
                                                     <td>{{ $tot['date'] }}</td>
                                                     {{-- @endforeach --}}
@@ -73,12 +75,18 @@
                                                             marked</span></td>
                                                     <td>...</td> --}}
                                                 {{-- @endif --}}
-                                                <td><input class="ml-5 text-success bg-success" type="radio"
-                                                        name="mark" id="mark" value="present">
-                                                    <input class="text-success bg-success" type="radio" name="mark"
-                                                        id="mark" value="absent">
-                                                    <input class="text-success bg-success" type="radio" name="mark"
-                                                        id="mark" value="leave">
+                                                <td><input class="ml-5 bg-success rdo" type="radio"
+                                                        name="mark-{{ $tot['id'] }}" id="mark-{{ $tot['id'] }}"
+                                                        value="present" data-id="{{ $tot['employe_id'] }}"
+                                                        data-att="{{ $tot['id'] }}">
+                                                    <input class="bg-success rdo" type="radio"
+                                                        name="mark-{{ $tot['id'] }}" id="mark-{{ $tot['id'] }}"
+                                                        value="absent" data-id="{{ $tot['employe_id'] }}"
+                                                        data-att="{{ $tot['id'] }}">
+                                                    <input class="bg-success rdo" type="radio"
+                                                        name="mark-{{ $tot['id'] }}" id="mark-{{ $tot['id'] }}"
+                                                        value="leave" data-id="{{ $tot['employe_id'] }}"
+                                                        data-att="{{ $tot['id'] }}">
                                                 </td>
                                             </tr>
                                         @endforeach
