@@ -256,7 +256,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('admin-chatroom') }}" class="nav-link">
                                 <i class="nav-icon fas fa-comment"></i>
                                 <p>
                                     Chat Room

@@ -41,6 +41,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attendance::class, 'employe_id')->whereMonth('date', '=', '6');
     }
+    public function sender()
+    {
+        return $this->hasMany(PrivateChat::class, 'sender_id');
+    }
+    public function receiver()
+    {
+        return $this->hasMany(PrivateChat::class, 'receiver_id');
+    }
     /**
      * The attributes that are mass assignable.
      *

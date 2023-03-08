@@ -13,6 +13,6 @@ class MainController extends Controller
     public function index()
     {
         Session::flush('user');
-        return redirect()->route('login-form');
+        return redirect()->route('login');
     }
 }

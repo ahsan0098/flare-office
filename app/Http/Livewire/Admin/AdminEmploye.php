@@ -56,7 +56,7 @@ class AdminEmploye extends Component
             'emp_position' => 'required',
             'emp_salary' => 'required|integer',
         ]);
-        $this->emp_password = Hash::make($this->emp_password);
+        $this->emp_password = md5($this->emp_password);
         $user = new User;
         $user->name = $this->emp_name;
         $user->email = $this->emp_email;
@@ -111,7 +111,7 @@ class AdminEmploye extends Component
     }
     public function deleteEmp($id)
     {
-        $user = User::with('employe')->where('id', $id);
+        $user = User::with('employe')->with('sender')->with('receiver')->where('id', $id);
         if ($user->delete()) {
             $this->dispatchBrowserEvent('swal:add_employes', [
                 'icon' => "success",
@@ -150,7 +150,7 @@ class AdminEmploye extends Component
             'edit_position' => 'required',
             'edit_salary' => 'required|integer',
         ]);
-        $this->edit_password = Hash::make($this->edit_password);
+        $this->edit_password = md5($this->edit_password);
         $user = User::find($this->edit_id);
         $user->name = $this->edit_name;
         $user->email = $this->edit_email;

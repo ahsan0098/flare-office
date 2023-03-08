@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MainController;
 use App\Http\Livewire\Admin\AdminAttendance;
+use App\Http\Livewire\Admin\AdminChatroom;
 use App\Http\Livewire\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\LoginForm;
@@ -26,7 +27,7 @@ use App\Http\Livewire\Employe\EmployeDashboard;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', LoginForm::class)->name('login-form');
+Route::get('/', LoginForm::class)->name('login');
 // For employes
 Route::middleware(['authuser'])->group(function () {
     Route::get('/Employe-dashboard', EmployeDashboard::class)->name('employeDashboard');
@@ -38,17 +39,18 @@ Route::middleware(['authadmin'])->group(function () {
     Route::get('/department', AdminDepartment::class)->name('department');
     Route::get('/employe', AdminEmploye::class)->name('employe');
     Route::get('/admin-attendance', AdminAttendance::class)->name('admin-attendance');
+    Route::get('/admin-chatroom', AdminChatroom::class)->name('admin-chatroom');
 });
 
-Route::get('logoutUser', [MainController::class, 'logout'])->name('signout');
+// Route::get('logoutUser', [MainController::class, 'logout'])->name('signout');
 Route::get('index', [MainController::class, 'index'])->name('index');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
