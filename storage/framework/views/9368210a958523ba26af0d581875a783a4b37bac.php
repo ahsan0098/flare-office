@@ -1,29 +1,21 @@
 <div>
     <div class="row justify-content-center align-items-center g-2 m-0 p-0 bg-light">
-        {{-- @php
-            echo '<pre>';
-            print_r($chat);
-        @endphp --}}
+        
         <section class="col-lg-8 connectedSortable" wire:poll="refreshing">
-            {{-- @php
-                echo '<pre>';
-                print_r($agent);
-            @endphp --}}
+            
             <!-- DIRECT CHAT -->
             <div class="card direct-chat direct-chat-primary" wire:ignore.self>
                 <div class="card-header bg-danger">
                     <h3 class="card-title">Private chat</h3>
                     <div class="card-tools">
-                        {{-- <span title="3 New Messages" class="badge badge-primary">3</span> --}}
+                        
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
                         <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
                             <i class="fas fa-comments"></i>
                         </button>
-                        {{-- <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button> --}}
+                        
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -32,54 +24,56 @@
                     <!-- Conversations are loaded here -->
                     <div class="p-3">
                         <!-- Message. Default to the left -->
-                        {{-- <div class="text-center text-primary">vddg</div> --}}
+                        
                         <div>
-                            @if ($chat != [])
+                            <?php if($chat != []): ?>
                                 <div>
-                                    @foreach ($chat as $ct)
+                                    <?php $__currentLoopData = $chat; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div>
-                                            @if ($ct['sender']['id'] == $me)
+                                            <?php if($ct['sender']['id'] == $me): ?>
                                                 <div class="direct-chat-msg right my-1 py-1">
                                                     <div class="direct-chat-infos clearfix">
                                                         <span
-                                                            class="direct-chat-name float-left">You({{ $ct['sender']['name'] }})</span>
+                                                            class="direct-chat-name float-left">You(<?php echo e($ct['sender']['name']); ?>)</span>
                                                         <span
-                                                            class="direct-chat-timestamp float-right">{{ $ct['created_at'] }}</span>
+                                                            class="direct-chat-timestamp float-right"><?php echo e($ct['created_at']); ?></span>
                                                     </div>
                                                     <!-- /.direct-chat-infos -->
                                                     <img class="direct-chat-img"
-                                                        src="{{ asset('storage/employe_' . $ct['sender']['id']) }}/{{ $ct['sender']['image'] }}"
+                                                        src="<?php echo e(asset('storage/employe_' . $ct['sender']['id'])); ?>/<?php echo e($ct['sender']['image']); ?>"
                                                         alt="">
                                                     <!-- /.direct-chat-img -->
-                                                    <div class="direct-chat-text bg-white py-3">
-                                                        {{ $ct['message'] }}
+                                                    <div class="direct-chat-text bg-info py-3">
+                                                        <?php echo e($ct['message']); ?>
+
                                                     </div>
                                                     <!-- /.direct-chat-text -->
                                                 </div>
-                                            @else
+                                            <?php else: ?>
                                                 <div class="direct-chat-msg my-1 py-1">
                                                     <div class="direct-chat-infos clearfix">
                                                         <span
-                                                            class="direct-chat-name float-left">{{ $ct['sender']['name'] }}</span>
+                                                            class="direct-chat-name float-left"><?php echo e($ct['sender']['name']); ?></span>
                                                         <span
-                                                            class="direct-chat-timestamp float-right">{{ $ct['created_at'] }}</span>
+                                                            class="direct-chat-timestamp float-right"><?php echo e($ct['created_at']); ?></span>
                                                     </div>
                                                     <!-- /.direct-chat-infos -->
                                                     <img class="direct-chat-img"
-                                                        src="{{ asset('storage/employe_' . $ct['sender']['id']) }}/{{ $ct['sender']['image'] }}"
+                                                        src="<?php echo e(asset('storage/employe_' . $ct['sender']['id'])); ?>/<?php echo e($ct['sender']['image']); ?>"
                                                         alt="">
                                                     <!-- /.direct-chat-img -->
                                                     <div class="direct-chat-text bg-success py-3">
-                                                        {{ $ct['message'] }}
+                                                        <?php echo e($ct['message']); ?>
+
                                                     </div>
                                                     <!-- /.direct-chat-text -->
                                                 </div>
-                                            @endif
+                                            <?php endif; ?>
                                         </div>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </div>
-                            @endif
+                            <?php endif; ?>
 
                         </div>
 
@@ -89,18 +83,19 @@
                     <!-- Contacts are loaded here -->
                     <div class="direct-chat-contacts">
                         <ul class="contacts-list">
-                            {{-- <div> --}}
-                            @foreach ($users as $user)
+                            
+                            <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li>
                                     <a href="#" data-widget="chat-pane-toggle"
-                                        wire:click="getChat({{ $user->id }})">
+                                        wire:click="getChat(<?php echo e($user->id); ?>)">
                                         <img class="contacts-list-img"
-                                            src="{{ asset('storage/employe_' . $user->id) }}/{{ $user->image }}"
+                                            src="<?php echo e(asset('storage/employe_' . $user->id)); ?>/<?php echo e($user->image); ?>"
                                             alt="no image">
 
                                         <div class="contacts-list-info">
                                             <span class="contacts-list-name">
-                                                {{ $user->name }}
+                                                <?php echo e($user->name); ?>
+
                                                 <small class="contacts-list-date float-right">2/28/2015</small>
                                             </span>
                                             <span class="contacts-list-msg">cvv</span>
@@ -108,9 +103,9 @@
                                         <!-- /.contacts-list-info -->
                                     </a>
                                 </li>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                            {{-- </div> --}}
+                            
                             <!-- End Contact Item -->
                         </ul>
                         <!-- /.contacts-list -->
@@ -137,3 +132,4 @@
     </div>
 </div>
 <!-- /.col -->
+<?php /**PATH C:\xampp\htdocs\flare-office\resources\views/livewire/employe/employe-chat-room.blade.php ENDPATH**/ ?>

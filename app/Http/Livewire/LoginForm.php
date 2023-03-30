@@ -18,9 +18,10 @@ class LoginForm extends Component
             'password' => 'required'
         ]);
         $this->password = md5($this->password);
-        $user = User::where('email', $this->email)->where('password', $this->password)->where('status', 1)->first();
+        $user = User::where('email', $this->email)->where('password', $this->password)->where('status', 1)->with('role')->first();
         if ($user) {
             session()->put('u_id', $user->id);
+            session()->put('user', $user);
             $this->test = 'done';
             $this->email = '';
             $this->password = '';

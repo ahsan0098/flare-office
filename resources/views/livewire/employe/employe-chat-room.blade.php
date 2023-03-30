@@ -51,7 +51,7 @@
                                                         src="{{ asset('storage/employe_' . $ct['sender']['id']) }}/{{ $ct['sender']['image'] }}"
                                                         alt="">
                                                     <!-- /.direct-chat-img -->
-                                                    <div class="direct-chat-text bg-white py-3">
+                                                    <div class="direct-chat-text bg-info py-3">
                                                         {{ $ct['message'] }}
                                                     </div>
                                                     <!-- /.direct-chat-text -->

@@ -45,11 +45,11 @@ class MarkAttendance extends Component
     }
     public function render()
     {
-        // $t = date('y-m-d');
-        // $atend = Attendance::where('employe_id', session()->get('u_id'))->where('date', $t)->first();
-        // if (!$atend) {
-        //     $this->dispatchBrowserEvent('btn-show');
-        // }
+        $t = date('y-m-d');
+        $atend = Attendance::where('employe_id', session()->get('u_id'))->where('date', $t)->first();
+        if (!$atend) {
+            $this->dispatchBrowserEvent('btn-show');
+        }
         return view('livewire.admin.mark-attendance');
     }
 }

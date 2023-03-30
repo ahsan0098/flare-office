@@ -611,3 +611,4 @@
     </section>
     <!-- /.content -->
 </div>
+<?php /**PATH C:\xampp\htdocs\flare-office\resources\views/livewire/employe/employe-dashboard.blade.php ENDPATH**/ ?>

@@ -49,6 +49,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(PrivateChat::class, 'receiver_id');
     }
+    public function role()
+    {
+        return $this->belongsTo(AdminRole::class, 'role_id');
+    }
     /**
      * The attributes that are mass assignable.
      *

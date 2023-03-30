@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Employe;
 
 use App\Models\User;
 use Livewire\Component;
-use App\Models\PrivateChat;
 use App\Models\PublicChat;
+use App\Models\PrivateChat;
 
-class AdminChatroom extends Component
+class EmployeChatRoom extends Component
 {
     public $test = "ahsan";
     public $me;
@@ -37,7 +37,6 @@ class AdminChatroom extends Component
             $this->test = PrivateChat::where('chat_code', $this->test->chat_code)->with('sender')->get();
             $this->test = json_decode($this->test, true);
         }
-
     }
     public function getChat($other)
     {
@@ -107,6 +106,6 @@ class AdminChatroom extends Component
     }
     public function render()
     {
-        return view('livewire.admin.admin-chatroom')->layout('layouts.admin-base');
+        return view('livewire.employe.employe-chat-room')->layout('layouts.user-base');
     }
 }

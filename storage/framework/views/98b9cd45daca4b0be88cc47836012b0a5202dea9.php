@@ -4,34 +4,65 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Dashboard </title>
+    <title>AdminLTE 3 | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?php echo e(asset('assets/plugins/fontawesome-free/css/all.min.css')); ?>">
+    <!-- Ionicons -->
+    <link rel="stylesheet"
+        href="<?php echo e(asset('assets/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')); ?>">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="<?php echo e(asset('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')); ?>">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="<?php echo e(asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')); ?>">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="<?php echo e(asset('assets/plugins/jqvmap/jqvmap.min.css')); ?>">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/icons-1.9.1/font/bootstrap-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
-    @livewireStyles
+    <link rel="stylesheet" href="<?php echo e(asset('assets/dist/css/adminlte.min.css')); ?>">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="<?php echo e(asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')); ?>">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="<?php echo e(asset('assets/plugins/daterangepicker/daterangepicker.css')); ?>">
+    <!-- summernote -->
+    <link rel="stylesheet" href="<?php echo e(asset('assets/plugins/icons-1.9.1/font/bootstrap-icons.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/plugins/summernote/summernote-bs4.min.css')); ?>">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <?php echo \Livewire\Livewire::styles(); ?>
+
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        @livewire('admin.mark-attendance')
+        <?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('admin.mark-attendance')->html();
+} elseif ($_instance->childHasBeenRendered('hFvEidN')) {
+    $componentId = $_instance->getRenderedChildComponentId('hFvEidN');
+    $componentTag = $_instance->getRenderedChildComponentTagName('hFvEidN');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('hFvEidN');
+} else {
+    $response = \Livewire\Livewire::mount('admin.mark-attendance');
+    $html = $response->html();
+    $_instance->logRenderedChild('hFvEidN', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
+            <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
                 width="60">
         </div>
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-dark">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -39,11 +70,11 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="" class="nav-link">Home</a>
+                    <a href="index3.html" class="nav-link">Home</a>
                 </li>
-                {{-- <li class="nav-item d-none d-sm-inline-block">
+                <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
-                </li> --}}
+                </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="btn btn-warning nav-link fade" data-toggle="modal"
                         data-target="#attendace_modal" id="att_btn">Mark your Attendance</a>
@@ -51,7 +82,7 @@
             </ul>
 
             <!-- Right navbar links -->
-            {{-- <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -107,7 +138,8 @@
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                        <span class="float-right text-sm text-muted"><i
+                                                class="fas fa-star"></i></span>
                                     </h3>
                                     <p class="text-sm">I got your message bro</p>
                                     <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
@@ -170,12 +202,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"
-                        role="button">
+                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true"
+                        href="#" role="button">
                         <i class="fas fa-th-large"></i>
                     </a>
                 </li>
-            </ul> --}}
+            </ul>
         </nav>
         <!-- /.navbar -->
 
@@ -185,32 +217,30 @@
             <a href="index3.html" class="brand-link">
                 <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Admin</span>
+                <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
-                <div class="mt-3 pb-3 mb-3 d-flex ">
-                    <div class="image mr-3">
-                        <img src="{{ asset('storage/employe_' . session('u_id')) }}/{{ session('user')['image'] }}"
-                            class="img-circle elevation-2" alt="User Image" width="70" height="70">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
-                    <div class="info mt-3">
-                        <a href="#" class="d-block">
-                            <h4>{{ Str::ucfirst(session('user')['name']) }}</h4>
-                        </a>
+                    <div class="info">
+                        <a href="#" class="d-block">Alexander Pierce</a>
                     </div>
                 </div>
 
-
+                <!-- SidebarSearch Form -->
+                
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="{{ route('adminDashboard') }}" class="nav-link active">
+                            <a href="<?php echo e(route('employeDashboard')); ?>" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -218,7 +248,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('department') }}" class="nav-link">
+                            <a href="<?php echo e(route('department')); ?>" class="nav-link">
                                 <i class="nav-icon fas fa-university"></i>
                                 <p>
                                     Departments
@@ -227,7 +257,7 @@
 
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('employe') }}" class="nav-link">
+                            <a href="<?php echo e(route('employe')); ?>" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Employes
@@ -243,14 +273,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin-expense') }}" class="nav-link">
+                            <a href="<?php echo e(route('admin-expense')); ?>" class="nav-link">
                                 <i class="nav-icon bi bi-bar-chart-fill"></i>
                                 <p>
                                     Expenses
                                 </p>
                             </a>
                         </li>
-
                         <li class="nav-item menu-open">
                             <a href="" class="nav-link">
                                 <i class="nav-icon bi bi-chat-dots-fill"></i>
@@ -259,15 +288,15 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview ml-5">
+                            <ul class="nav nav-treeview ml-2">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin-chatroom') }}" class="nav-link">
+                                    <a href="<?php echo e(route('employe-chatroom')); ?>" class="nav-link">
                                         <i class="bi bi-shield-lock-fill nav-icon"></i>
                                         <p>Pivate chat</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin-public-chatroom') }}" class="nav-link">
+                                    <a href="<?php echo e(route('employe-public-chatroom')); ?>" class="nav-link">
                                         <i class="bi bi-unlock-fill nav-icon"></i>
                                         <p>Public chat</p>
                                     </a>
@@ -275,32 +304,24 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin-attendance') }}" class="nav-link">
+                            <a href="<?php echo e(route('employe-attendance')); ?>" class="nav-link">
                                 <i class="nav-icon fas fa-check-circle"></i>
                                 <p>
                                     Attendance
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin-profile') }}" class="nav-link">
-                                <i class="nav-icon bi bi-person-badge"></i>
-                                <p>
-                                    Profile
 
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
-                            <a href="{{ route('admin-roles-and-permissions') }}" class="nav-link active">
-                                <i class="nav-icon bi bi-shield-exclamation"></i>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('employe-profile')); ?>" class="nav-link">
+                                <i class="nav-icon bi bi-person-badge"></i>
                                 <p>
-                                    Roles and Permissions
+                                    Profile
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('index') }}" class="nav-link">
+                            <a href="<?php echo e(route('index')); ?>" class="nav-link">
                                 <i class="nav-icon bi bi-box-arrow-left"></i>
                                 <p>
                                     Logout
@@ -315,72 +336,86 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div>
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0">Departments</h1>
-                            </div><!-- /.col -->
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active">Departments</li>
-                                </ol>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                {{ $slot }}
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Dashboard</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard v1</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+
+                </div><!-- /.container-fluid -->
             </div>
+            <?php echo e($slot); ?>
+
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-
-        <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">software flare</a>.</strong>
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.2.0
             </div>
         </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-    </div>
-    <!-- REQUIRED SCRIPTS -->
+
     <!-- jQuery -->
-    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap -->
-    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
-
-    <!-- PAGE PLUGINS -->
-    <!-- jQuery Mapael -->
-    <script src="{{ asset('assets/plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
-    <script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
+    <script src="<?php echo e(asset('assets/plugins/jquery/jquery.min.js')); ?>"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="<?php echo e(asset('assets/plugins/jquery-ui/jquery-ui.min.js')); ?>"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="<?php echo e(asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
     <!-- ChartJS -->
-    <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
-
+    <script src="<?php echo e(asset('assets/plugins/chart.js/Chart.min.js')); ?>"></script>
+    <!-- Sparkline -->
+    <script src="<?php echo e(asset('assets/plugins/sparklines/sparkline.js')); ?>"></script>
+    <!-- JQVMap -->
+    <script src="<?php echo e(asset('assets/plugins/jqvmap/jquery.vmap.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/plugins/jqvmap/maps/jquery.vmap.usa.js')); ?>"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="<?php echo e(asset('assets/plugins/jquery-knob/jquery.knob.min.js')); ?>"></script>
+    <!-- daterangepicker -->
+    <script src="<?php echo e(asset('assets/plugins/moment/moment.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/plugins/daterangepicker/daterangepicker.js')); ?>"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="<?php echo e(asset('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')); ?>"></script>
+    <!-- Summernote -->
+    <script src="<?php echo e(asset('assets/plugins/summernote/summernote-bs4.min.js')); ?>"></script>
+    <!-- overlayScrollbars -->
+    <script src="<?php echo e(asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')); ?>"></script>
+    <!-- AdminLTE App -->
+    <script src="<?php echo e(asset('assets/dist/js/adminlte.js')); ?>"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+    <script src="<?php echo e(asset('assets/dist/js/demo.js')); ?>"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('assets/dist/js/pages/dashboard2.js') }}"></script>
-
+    <script src="<?php echo e(asset('assets/dist/js/pages/dashboard.js')); ?>"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('assets/functions.js') }}"></script>
-    @livewireScripts
+    <script src="<?php echo e(asset('assets/functions.js')); ?>"></script>
+    <?php echo \Livewire\Livewire::scripts(); ?>
+
 </body>
 
 </html>
+<?php /**PATH C:\xampp\htdocs\flare-office\resources\views/layouts/user-base.blade.php ENDPATH**/ ?>
