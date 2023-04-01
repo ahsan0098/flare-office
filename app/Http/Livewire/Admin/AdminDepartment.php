@@ -35,15 +35,15 @@ class AdminDepartment extends Component
         // }
         $this->dep = json_decode($this->dep, true);
     }
-    // public function checkPermission($btn, $perm, $type)
-    // {
-    //     $check = $this->permission->hasPermission($perm, $type);
-    //     if (!$check['status']) {
-    //         $this->dispatchBrowserEvent('swal:not_permission', [
-    //             'btn' => $btn,
-    //         ]);
-    //     }
-    // }
+    public function checkPermission($btn, $perm, $type)
+    {
+        $check = $this->permission->hasPermission($perm, $type);
+        if (!$check['status']) {
+            $this->dispatchBrowserEvent('swal:not_permission', [
+                'btn' => $btn,
+            ]);
+        }
+    }
     public function addDepartment()
     {
         $check = $this->permission->hasPermission('add', 'departments');

@@ -142,9 +142,8 @@ window.addEventListener('swal:updatepassword', function (e) {
 window.addEventListener('swal:not_permission', function (e) {
     $(e.detail.btn).attr('disabled', 'disabled');
     swal.fire([
-        'Access Denied!',
-        'You are not permited for the task!',
-        'warning'
+
+        
     ]);
 });
 

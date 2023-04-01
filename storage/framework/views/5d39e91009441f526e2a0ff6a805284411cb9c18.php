@@ -30,6 +30,8 @@
      <script src="<?php echo e(asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
      <!-- AdminLTE App -->
      <script src="<?php echo e(asset('assets/dist/js/adminlte.min.js')); ?>"></script>
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <script src="<?php echo e(asset('assets/functions.js')); ?>"></script>
      <?php echo \Livewire\Livewire::scripts(); ?>
 
  </body>

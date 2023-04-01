@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\User;
+use Livewire\Component;
 use App\Models\department;
 use App\Models\subdepartment;
-use App\Models\User;
+use App\Libraries\Permissions;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Component;
 
 class AdminEmploye extends Component
 {
@@ -28,7 +29,22 @@ class AdminEmploye extends Component
     public $employe;
     public $sub_deps = [];
     public $search = null;
+    protected $permission;
     protected $listeners = ['search' => 'search', 'deleteEmp' => 'deleteEmp'];
+    function __construct()
+    {
+        $this->permission = new Permissions(); // Loading Permissions Library
+
+    }
+    // public function checkPermission($btn, $perm, $type)
+    // {
+    //     $check = $this->permission->hasPermission($perm, $type);
+    //     if (!$check['status']) {
+    //         $this->dispatchBrowserEvent('swal:not_permission', [
+    //             'btn' => $btn,
+    //         ]);
+    //     }
+    // }
     public function mount()
     {
         $this->employe = User::with('department')->with('position')->get();
@@ -48,6 +64,8 @@ class AdminEmploye extends Component
     }
     public function addEmploye()
     {
+        // $check = $this->permission->hasPermission('add', 'user');
+        // if ($check['status']) {
         $this->validate([
             'emp_name' => 'required',
             'emp_email' => 'required|email|unique:users,email',
@@ -76,6 +94,12 @@ class AdminEmploye extends Component
             $this->emp_position = '';
             $this->emp_salary = '';
         }
+        // } else {
+        //     $this->dispatchBrowserEvent('swal:updatepassword', [
+        //         'icon' => 'warning',
+        //         'text' => $check['message'],
+        //     ]);
+        // }
     }
     public function test($id = null)
     {

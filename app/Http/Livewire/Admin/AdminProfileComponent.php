@@ -25,7 +25,7 @@ class AdminProfileComponent extends Component
     public $confirm_pass;
     public $test = "prepare";
     public $Foo;
-    public $files;
+    public $files = [];
     protected $listeners = ['upload_image' => 'upload_image'];
     public function mount()
     {
@@ -33,13 +33,18 @@ class AdminProfileComponent extends Component
         $this->test = $this->user->image;
         // $this->user = json_decode($this->user, true);
         $dir = $_SERVER['DOCUMENT_ROOT'] . '/storage/employe_' . $this->user->id;
-        $this->files = scandir($dir);
-        foreach ($this->files as $index => $file) {
-            if ($file === '..' || $file === '.') {
-                unset($this->files[$index]);
+        if (file_exists($dir)) {
+
+            $this->files = scandir($dir);
+
+            foreach ($this->files as $index => $file) {
+                if ($file === '..' || $file === '.') {
+                    unset($this->files[$index]);
+                }
             }
+            $this->files = array_reverse($this->files);
+            clearstatcache();
         }
-        $this->files = array_reverse($this->files);
     }
     public function loadUser()
     {
@@ -61,15 +66,15 @@ class AdminProfileComponent extends Component
         if (in_array($ext, $exts)) {
             $usr = User::find(session('u_id'));
             $imagename = Carbon::now()->timestamp . '.' . $this->Foo->extension();
-            // WithFileUploads::saveDomDocument('products', $imagename);
+            // WithFileUploads::saveDomDocument('users/employe_' . $this->user->id, $imagename);
             $this->Foo->storeAs('users/employe_' . $this->user->id, $imagename);
             $usr->image = $imagename;
             if ($usr->save()) {
-                // $this->user->image = $imagename;
+                session('user')['image'] = $imagename;
             }
         } else {
             $this->dispatchBrowserEvent('swal:updatepassword', [
-                'icon' => "danger",
+                'icon' => "error",
                 'text' => "Upload file types (png, jpg, jpeg, gif, bmp, webp) only",
             ]);
         }
@@ -100,6 +105,7 @@ class AdminProfileComponent extends Component
         $employe->twitter = $this->twitter;
         $employe->instagram = $this->instagram;
         if ($employe->save()) {
+            session('user')['name'] = $employe->name;
             $this->dispatchBrowserEvent('swal:updateProfile', [
                 'icon' => "success",
                 'text' => 'User profile updated successfully.',
@@ -134,7 +140,7 @@ class AdminProfileComponent extends Component
         } else {
             $this->dispatchBrowserEvent('swal:updatepassword', [
                 'icon' => "warning",
-                'text' => 'Current password and new password did not matched.',
+                'text' => 'Current password did not matched.',
             ]);
             $this->old_pass = "";
             $this->new_pass = "";

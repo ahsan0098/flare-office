@@ -1,14 +1,14 @@
 <div>
     <div class="px-3" wire:poll>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-sm-12">
                 <div class="card">
                     {{-- @php
                         echo '<pre>';
                         print_r($);
                     @endphp --}}
-                    <div class="card-header">
-                        <h3 class="card-title">Fixed Header Table</h3>
+                    <div class="card-header" wire:poll>
+                        <h3 class="card-title">Employes Table</h3>
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
                                 {{-- <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body anyClass p-0" wire:poll>
+                    <div class="card-body p-0 table_card_view" wire:igonre.self>
                         {{-- @php
                             echo '<pre>';
                             print_r($employe);
@@ -41,13 +41,14 @@
                         <table class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
+                                    <th>image</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Salary</th>
                                     <th>Department</th>
                                     <th>Position</th>
                                     <th>Joining date</th>
-                                    <th>Status</th>
+                                    {{-- <th>Status</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -55,15 +56,34 @@
                                 <div>
                                     @foreach ($employe as $emp)
                                         <tr class="<?= $emp->status ? '' : 'text-warning' ?>">
-                                            {{-- <td>{{ $emp->id }}</td> --}}
-                                            <td>{{ $emp->name }}</td>
-                                            <td>{{ $emp->email }}</td>
-                                            <td>{{ $emp->salary }}</td>
-                                            <td>{{ $emp->department->name }}</td>
-                                            <td>{{ $emp->position->name }}</td>
-                                            <td>{{ $emp->created_at->format('Y-m-d') }}</td>
-                                            <td><?= $emp->status ? 'Active' : 'Proactive' ?></td>
-                                            <td><a href="" data-toggle="modal" data-target="#edit_employe"
+                                            <td style="text-align: center; vertical-align:middle;"
+                                                style="text-align: center; vertical-align:middle;">
+                                                @if ($emp->image)
+                                                    <img src="{{ asset('storage/employe_' . $emp->id) . '/' . $emp->image }}"
+                                                        class="mig img-circle elevation-2" alt="User Image"
+                                                        width="50" height="50">
+                                                @else
+                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                                        class="mig img-circle elevation-2" alt="User Image"
+                                                        width="50" height="50">
+                                                @endif
+                                            </td>
+                                            <td style="text-align: center; vertical-align:middle;">{{ $emp->name }}
+                                            </td>
+                                            <td style="text-align: center; vertical-align:middle;">{{ $emp->email }}
+                                            </td>
+                                            <td style="text-align: center; vertical-align:middle;">{{ $emp->salary }}
+                                            </td>
+                                            <td style="text-align: center; vertical-align:middle;">
+                                                {{ $emp->department->name }}</td>
+                                            <td style="text-align: center; vertical-align:middle;">
+                                                {{ $emp->position->name }}</td>
+                                            <td style="text-align: center; vertical-align:middle;">
+                                                {{ $emp->created_at->format('Y-m-d') }}</td>
+                                            {{-- <td style="text-align: center; vertical-align:middle;">
+                                                <?= $emp->status ? 'Active' : 'Proactive' ?></td> --}}
+                                            <td style="text-align: center; vertical-align:middle;"><a href=""
+                                                    data-toggle="modal" data-target="#edit_employe"
                                                     wire:click.prevent="Edit({{ $emp->id }})"><i
                                                         class="bi bi-pencil-square text-success"></i></a>&nbsp;&nbsp;<a
                                                     href=""
@@ -340,8 +360,9 @@
                             </div>
                             <!-- /.card -->
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-secondary text-center"
+                                data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Regiter</button>
                         </div>
                         </form>

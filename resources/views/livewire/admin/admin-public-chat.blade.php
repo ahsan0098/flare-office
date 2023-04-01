@@ -4,7 +4,7 @@
         <div class="col-lg-8">
             <!-- DIRECT CHAT -->
             <div class="card direct-chat direct-chat-warning">
-                <div class="card-header  bg-primary">
+                <div class="car d-header  bg-primary">
                     <h3 class="card-title">Public Chat</h3>
 
                     <div class="card-tools">

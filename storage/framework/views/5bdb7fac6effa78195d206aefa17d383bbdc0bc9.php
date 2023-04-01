@@ -5,8 +5,8 @@
                 <div class="col">
                     <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Admin dashboard</a></li>
+                            
+                            <li class="breadcrumb-item"><a href="<?php echo e(route('adminDashboard')); ?>">Dashboard</a></li>
                             <li class="breadcrumb-item active" aria-current="page">User Profile</li>
                         </ol>
                     </nav>
@@ -20,17 +20,25 @@
                         <div class="card-body text-center">
                             <div class="uploadimg">
                                 <div>
-                                    <?php if($user->image): ?>
-                                        <img src="<?php echo e(asset('storage/employe_' . $user->id)); ?>/<?php echo e($user->image); ?>"
-                                            alt="avatar" class="img-fluid changeprofile" style="width: 150px;"
-                                            wire:ignore.self>
+                                    <?php if(file_exists($_SERVER['DOCUMENT_ROOT'] . '/storage/employe_' . $user->id . '/' . $user->image)): ?>
+                                        <div>
+                                            <?php if($user->image): ?>
+                                                <img src="<?php echo e(asset('storage/employe_' . $user->id)); ?>/<?php echo e($user->image); ?>"
+                                                    alt="avatar" class="img-fluid changeprofile" style="width: 150px;"
+                                                    wire:ignore.self>
+                                            <?php else: ?>
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                                    alt="avatar" class="rounded-circle img-fluid"
+                                                    style="width: 150px;">
+                                            <?php endif; ?>
+                                        </div>
                                     <?php else: ?>
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                                             alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                                     <?php endif; ?>
-                                    <button id="upload_image" class="ml-0"><i class="bi bi-camera-fill "
-                                            style="font-size: 50px;"></i></button>
                                 </div>
+                                <button id="upload_image" class="ml-0"><i class="bi bi-camera-fill "
+                                        style="font-size: 50px;"></i></button>
                                 <input class="image_select" wire:model="Foo" type="file" name="image_select"
                                     id="image_select" hidden>
 

@@ -34,7 +34,11 @@ class LoginForm extends Component
                 return redirect()->route('employeDashboard');
             }
         } else {
-            session()->flash('failed', 'Credentials did not match');
+            $this->password = '';
+            $this->dispatchBrowserEvent('swal:toaster', [
+                'icon' => "warning",
+                'text' => 'New password and confirm password did not matched.',
+            ]);
         }
     }
 

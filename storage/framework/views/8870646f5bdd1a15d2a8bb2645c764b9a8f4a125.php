@@ -1,12 +1,10 @@
 <div>
     <div class="row justify-content-center align-items-center g-2 m-0 p-0" wire:poll>
-        
 
-        
         <div class="col-lg-8">
             <!-- DIRECT CHAT -->
             <div class="card direct-chat direct-chat-warning">
-                <div class="card-header  bg-primary">
+                <div class="car d-header  bg-primary">
                     <h3 class="card-title">Public Chat</h3>
 
                     <div class="card-tools">
@@ -23,7 +21,7 @@
                         <div>
                             <?php $__currentLoopData = $public_chat; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $public): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div>
-                                    <?php if($public->sender->id = $me): ?>
+                                    <?php if($public->sender->id == $me): ?>
                                         <div class="direct-chat-msg right my-1 py-1">
                                             <div class="direct-chat-infos clearfix">
                                                 <span

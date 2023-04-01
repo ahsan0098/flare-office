@@ -1,7 +1,7 @@
 <div>
     <div class="row mx-1" wire:poll>
-        <div class="col-12">
-            <div class="card">
+        <div class="col-12 col-sm-12">
+            <div class="card ">
                 <div class="card-header">
                     <h1 class="card-title">Role and permission assigned by super admin</h1>
 
@@ -138,7 +138,7 @@ unset($__errorArgs, $__bag); ?>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h5 class="modal-title" id="addpermissionLabel">New User Role</h5>
+                    <h5 class="modal-title" id="addpermissionLabel">New Permission</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -148,7 +148,7 @@ unset($__errorArgs, $__bag); ?>
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label class="col-form-label" for="inputSuccess"> Enter role name</label>
+                                    <label class="col-form-label" for="inputSuccess"> Enter permission name</label>
                                     <input type="text" wire:model="newpermission"
                                         name='newpermission'class="form-control" placeholder="Enter ...">
                                     <?php $__errorArgs = ['newpermission'];

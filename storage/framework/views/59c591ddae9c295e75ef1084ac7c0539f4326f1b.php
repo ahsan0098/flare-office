@@ -1,11 +1,15 @@
 <div>
+
     <div wire:poll>
-        <div class="px-3">
-            <div class="row">
-                <div class="col-12">
+        <div class="">
+            <div class="row mx-1">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><?php echo e($current); ?></h3>
+                            <h3 id="tableheading" class="card-title mb-2">
+                                <?php echo e($current); ?>
+
+                            </h3>
                             <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 450px;">
                                     
@@ -24,7 +28,7 @@
                                         </button>
                                     </div>
                                     
-                                    <div class="input-group-append">
+                                    <div class="input-group-append col-xm-12 float-right">
                                         <button type="button" class="btn btn-default btn-success px-2"
                                             data-toggle="modal" data-target="#generate_code">
                                             Attendance Token
@@ -35,7 +39,7 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0" style="height: 300px;">
+                        <div class="card-body table-responsive p-0 table_card_view" style="overflow:hidden;">
                             
                             <table class="table table-head-fixed text-nowrap">
                                 <thead>
@@ -54,23 +58,46 @@
                                     <div>
                                         <?php $__currentLoopData = $total; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tot): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
-                                                <td>image</td>
-                                                <td><?php echo e($tot['user']['name']); ?></td>
-                                                <td><?php echo e($tot['user']['email']); ?></td>
+                                                <td style="text-align: center; vertical-align:middle;">
+                                                    <?php if(file_exists($_SERVER['DOCUMENT_ROOT'] . '/storage/employe_' . $tot['user']['id'] . '/' . $tot['user']['image'])): ?>
+                                                        <div>
+                                                            <?php if($tot['user']['image']): ?>
+                                                                <img src="<?php echo e(asset('storage/employe_' . $tot['user']['id']) . '/' . $tot['user']['image']); ?>"
+                                                                    class="mig img-circle elevation-2" alt="User Image"
+                                                                    width="50" height="50">
+                                                            <?php else: ?>
+                                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                                                    class="mig img-circle elevation-2" alt="User Image"
+                                                                    width="50" height="50">
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    <?php else: ?>
+                                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                                            class="mig img-circle elevation-2" alt="User Image"
+                                                            width="50" height="50">
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td style="text-align: center; vertical-align:middle;">
+                                                    <?php echo e($tot['user']['name']); ?></td>
+                                                <td style="text-align: center; vertical-align:middle;">
+                                                    <?php echo e($tot['user']['email']); ?></td>
                                                 
                                                 <div>
                                                     
-                                                    <td><?= $tot['attendance'] == 'present' ? '<span class="bg-success p-1 rounded">' . $tot['attendance'] . '</span>' : '' ?>
+                                                    <td style="text-align: center; vertical-align:middle;">
+                                                        <?= $tot['attendance'] == 'present' ? '<span class="bg-success p-1 rounded">' . $tot['attendance'] . '</span>' : '' ?>
                                                         <?= $tot['attendance'] == 'absent' ? '<span class="bg-danger p-1 rounded">' . $tot['attendance'] . '</span>' : '' ?>
                                                         <?= $tot['attendance'] == 'leave' ? '<span class="bg-warning p-1 rounded">' . $tot['attendance'] . '</span>' : '' ?>
                                                     </td>
-                                                    <td><?php echo e($tot['date']); ?></td>
+                                                    <td style="text-align: center; vertical-align:middle;">
+                                                        <?php echo e($tot['date']); ?></td>
                                                     
                                                 </div>
                                                 
                                                 
                                                 
-                                                <td><input class="ml-5 bg-success rdo" type="radio"
+                                                <td style="text-align: center; vertical-align:middle;"><input
+                                                        class="ml-5 bg-success rdo" type="radio"
                                                         name="mark-<?php echo e($tot['id']); ?>" id="mark-<?php echo e($tot['id']); ?>"
                                                         value="present" data-id="<?php echo e($tot['employe_id']); ?>"
                                                         data-att="<?php echo e($tot['id']); ?>">
@@ -94,10 +121,10 @@
                     <!-- /.card -->
                 </div>
             </div>
-            <div class="modal fade" id="generate_code" tabindex="-1" role="dialog"
+            <div class="modal fade mx-2" id="generate_code" tabindex="-1" role="dialog"
                 aria-labelledby="generate_codeLabel" aria-hidden="true" wire:ignore.self>
                 <div class="modal-dialog" role="document">
-                    <div class="modal-content align self-center" style="width: 600px;">
+                    <div class="modal-content align self-center ">
                         <div class="modal-header">
                             <h5 class="modal-title" id="generate_codeLabel">Attendance Code</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -111,7 +138,8 @@
                                 ?>
                                 </p>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary"
                                         wire:click.prevent="randomize">Randomize</button>
                                 </div>

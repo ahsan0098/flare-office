@@ -73,7 +73,7 @@ class Permissions
             $perm_id = $this->admin_permissions->where('name', $permission)->first();
             if ($perm_id) {
                 $perm_id = $perm_id->id;
-                $check = $this->admin_role_permission->select($key)->where('role_id', session('user')['role_id'])->where('permission_id', $perm_id)->first();
+                $check = $this->admin_role_permission->select($key)->where('role_id', session('user')['role']['role_id'])->where('permission_id', $perm_id)->first();
                 // $check = json_decode($check, true);
 
                 if ($check) {

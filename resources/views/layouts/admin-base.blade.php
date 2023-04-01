@@ -39,7 +39,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="" class="nav-link">Home</a>
+                    <a href="{{ route('adminDashboard') }}" class="nav-link">Dashboard</a>
                 </li>
                 {{-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -183,9 +183,9 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
-                <span class="brand-text font-weight-light">Admin</span>
+                <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light"><strong>Softwre Flare </strong><small>pvt</small></span>
             </a>
 
             <!-- Sidebar -->
@@ -193,8 +193,13 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="mt-3 pb-3 mb-3 d-flex ">
                     <div class="image mr-3">
-                        <img src="{{ asset('storage/employe_' . session('u_id')) }}/{{ session('user')['image'] }}"
-                            class="img-circle elevation-2" alt="User Image" width="70" height="70">
+                        @if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/storage/employe_' . session('u_id') . '/' . session('user')['image']))
+                            <img src="{{ asset('storage/employe_' . session('u_id')) }}/{{ session('user')['image'] }}"
+                                class="img-circle elevation-2 changepro" alt="User Image" width="70" height="70">
+                        @else
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                class="img-circle elevation-2" alt="User Image" width="70" height="70">
+                        @endif
                     </div>
                     <div class="info mt-3">
                         <a href="#" class="d-block">
@@ -234,7 +239,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-credit-card"></i>
                                 <p>
@@ -249,7 +254,7 @@
                                     Expenses
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item menu-open">
                             <a href="" class="nav-link">
@@ -322,12 +327,17 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Departments</h1>
+                                <h1 class="m-0">
+                                    <?= basename($_SERVER['PHP_SELF']) != 'index.php' ? Str::ucfirst(basename($_SERVER['PHP_SELF'])) : 'Dashboard' ?>
+                                </h1>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active">Departments</li>
+                                    <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">
+                                        <?= basename($_SERVER['PHP_SELF']) != 'index.php' ? Str::ucfirst(basename($_SERVER['PHP_SELF'])) : 'Dashboard' ?>
+                                    </li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -374,7 +384,7 @@
     <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
 
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
+    {{-- <script src="{{ asset('assets/dist/js/demo.js') }}"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('assets/dist/js/pages/dashboard2.js') }}"></script>
 
