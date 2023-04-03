@@ -49,3 +49,24 @@
 .check-box{
     accent-color: red;
 }
+.table_card_view { border-collapse: collapse; }
+
+    @media only screen and (max-width:768px) and (min-width:200px)  {
+      .table_card_view, .table_card_view thead, .table_card_view tbody,
+      .table_card_view th, .table_card_view td, .table_card_view tr
+      { display: block; }
+
+      .table_card_view thead tr { position: absolute; top: -9999px; left: -9999px; }
+
+      .table_card_view tr
+      { border: 1px solid #ccc; margin-top: 4%; border-radius:7px; }
+
+      .table_card_view td {
+      border: none; border-bottom: 0px solid #eee;position: relative; padding-left: 50%;
+     }
+
+    .table_card_view td:before {
+        top: 6px; left: 6px; width: 45%;padding-right: 10px;  white-space: nowrap;
+        content: attr(data-column); color: #000; font-weight: bold;
+     }
+  }

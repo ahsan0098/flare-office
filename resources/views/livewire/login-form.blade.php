@@ -3,14 +3,14 @@
         <div class="login-logo">
             <a href="" wire:click.prevent="Login"><b>Software Flare</b><small> Ltd</small></a>
             @if (Session::has('failed'))
-            <div class="alert alert-danger">{{ session()->get('failed') }}</div>
+                <div class="alert alert-danger">{{ session()->get('failed') }}</div>
             @endif
         </div>
         <!-- /.login-logo -->
         <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Login Form</h3>
-            </div> 
+            </div>
             <!-- /.card-header -->
             <!-- form start -->
             <form method="POST" wire:submit.prevent="Login">
@@ -27,7 +27,7 @@
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" name="password" wire:model="password" class="form-control"
                             id="exampleInputPassword1" placeholder="Password">
-                        @error('email')
+                        @error('password')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

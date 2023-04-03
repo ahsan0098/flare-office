@@ -24,6 +24,7 @@ use App\Http\Livewire\Employe\EmployeChatRoom;
 use App\Http\Livewire\Employe\EmployeDashboard;
 use App\Http\Livewire\Employe\EmployeProfile;
 use App\Http\Livewire\Employe\EmployePublicChat;
+use App\Libraries\Permissions;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,7 @@ use App\Http\Livewire\Employe\EmployePublicChat;
 Route::get('/', LoginForm::class)->name('login');
 // For employes
 Route::middleware(['authuser'])->group(function () {
+
     Route::get('/Employe-dashboard', EmployeDashboard::class)->name('employeDashboard');
     Route::get('/employe-profile', EmployeProfile::class)->name('employe-profile');
     Route::get('/employe-chatroom', EmployeChatRoom::class)->name('employe-chatroom');
@@ -53,7 +55,7 @@ Route::middleware(['authuser'])->group(function () {
 Route::middleware(['authadmin'])->group(function () {
     Route::get('/Admin-dashboard', AdminDashboard::class)->name('adminDashboard');
     Route::get('/department', AdminDepartment::class)->name('department');
-    Route::get('/employe', AdminEmploye::class)->name('employe');
+    Route::get('/employe', AdminEmploye::class)->name('employe')->middleware('Permission:true');
     Route::get('/admin-attendance', AdminAttendance::class)->name('admin-attendance');
     Route::get('/admin-chatroom', AdminChatroom::class)->name('admin-chatroom');
     Route::get('/admin-public-chatroom', AdminPublicChat::class)->name('admin-public-chatroom');
@@ -64,7 +66,11 @@ Route::middleware(['authadmin'])->group(function () {
     Route::get('/permission-management/{role_name}', PermissionMangement::class)->name('permission-management');
     Route::get('/add-role-and-permission', AddRolesAndPermission::class)->name('add-role-and-permission');
 });
-
+// $permission = new Permissions;
+// $check = $permission->hasPermission('user', 'view');
+// if ($check['status'] == 1 && $check['message'] == 1) {
+//     Route::get('/employe', AdminEmploye::class)->name('employe')->middleware('Permission:true');
+// }
 // Route::get('logoutUser', [MainController::class, 'logout'])->name('signout');
 Route::get('index', [MainController::class, 'index'])->name('index');
 

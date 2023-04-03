@@ -35,9 +35,9 @@ class LoginForm extends Component
             }
         } else {
             $this->password = '';
-            $this->dispatchBrowserEvent('swal:toaster', [
-                'icon' => "warning",
-                'text' => 'New password and confirm password did not matched.',
+            $this->dispatchBrowserEvent('swal:toast', [
+                'icon' => "error",
+                'title' => 'current password did not matched.',
             ]);
         }
     }

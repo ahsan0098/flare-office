@@ -66,23 +66,23 @@ class Permissions
         $role_permission = $this->admin_role_permission->where('role_id', $role_id)->with('permission')->get();
         return $role_permission = json_decode($role_permission, true);
     }
-    public function hasPermission($key, $permission)
+    public function hasPermission($permission, $key)
     {
         try {
             $key = "perm_" . $key;
             $perm_id = $this->admin_permissions->where('name', $permission)->first();
             if ($perm_id) {
                 $perm_id = $perm_id->id;
-                $check = $this->admin_role_permission->select($key)->where('role_id', session('user')['role']['role_id'])->where('permission_id', $perm_id)->first();
+                $check = $this->admin_role_permission->where('role_id', session('user')['role_id'])->where('permission_id', $perm_id)->first();
                 // $check = json_decode($check, true);
 
-                if ($check) {
-                    return ['status' => true];
+                if ($check[$key]) {
+                    return ['status' => true, 'message' => $check[$key]];
                 } else {
-                    return ['status' => false, 'message' => 'User do not have permission to perform this task'];
+                    return ['status' => true, 'message' => $check[$key]];
                 }
             } else {
-                return ['status' => false, 'message' => 'Permission name does not match to any permission'];
+                return ['status' => false, 'message' => 'permission name not exist'];
             }
         } catch (\Exception $e) {
             return ['status' => false, 'message' => $e->getMessage()];;

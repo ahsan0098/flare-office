@@ -6,6 +6,7 @@ $(document).ready(function () {
 
             reader.onload = function (e) {
                 $('.changeprofile').attr('src', e.target.result);
+                $('.changepro').attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
         }
@@ -129,9 +130,8 @@ window.addEventListener('swal:confirmDelete', function (e) {
 // });
 window.addEventListener('swal:updateProfile', function (e) {
     swal.fire(e.detail).then(function (f) {
-        $(function () {
-            $('#edit_profile_modal').modal('toggle');
-        });
+
+        $('#edit_profile_modal').modal('toggle');
 
     });
 });
@@ -140,11 +140,42 @@ window.addEventListener('swal:updatepassword', function (e) {
     // $("#exampleModal").classList.toggle("fade");
 });
 window.addEventListener('swal:not_permission', function (e) {
-    $(e.detail.btn).attr('disabled', 'disabled');
+    // $(e.detail.btn).attr('disabled', 'disabled');
     swal.fire([
 
-        
     ]);
 });
+var toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
+window.addEventListener('swal:toast', function (e) {
+    // alert('sfsdfs');
+    toastMixin.fire({
+        title: e.detail.title,
+        icon: e.detail.icon,
+    });
+});
 
-
+window.addEventListener('not_permission', function (e) {
+    if (e.detail.message == 0) {
+        toastMixin.fire({
+            title: e.detail.title,
+            icon: e.detail.icon
+        });
+    }
+    if (e.detail.message == 1) {
+        $(e.detail.prop_id).modal('toggle');
+    }
+    // alert(e.detail.message);
+});

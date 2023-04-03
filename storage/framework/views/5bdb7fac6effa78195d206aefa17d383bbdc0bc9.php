@@ -32,7 +32,7 @@
                                                     style="width: 150px;">
                                             <?php endif; ?>
                                         </div>
-                                    <?php else: ?>
+                                    <?php else: ?> 
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                                             alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                                     <?php endif; ?>

@@ -24,8 +24,8 @@
                                     </button>
                                 </div>
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-default btn-primary px-2" data-toggle="modal"
-                                        data-target="#add_employe">
+                                    <button type="button" class="btn btn-default btn-primary px-2"
+                                        wire:click.prevent="checkPermission('user','add','#add_employe')">
                                         <i class="bi bi-person-plus-fill"></i>
                                     </button>
                                 </div>
@@ -83,7 +83,6 @@
                                             {{-- <td style="text-align: center; vertical-align:middle;">
                                                 <?= $emp->status ? 'Active' : 'Proactive' ?></td> --}}
                                             <td style="text-align: center; vertical-align:middle;"><a href=""
-                                                    data-toggle="modal" data-target="#edit_employe"
                                                     wire:click.prevent="Edit({{ $emp->id }})"><i
                                                         class="bi bi-pencil-square text-success"></i></a>&nbsp;&nbsp;<a
                                                     href=""
@@ -229,7 +228,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Regiter</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="justify-content: flex-start">Regiter</button>
                         </div>
                         </form>
                     </div>
@@ -363,7 +363,8 @@
                         <div class="modal-footer ">
                             <button type="button" class="btn btn-secondary text-center"
                                 data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Regiter</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="justify-content: flex-start !important">Regiter</button>
                         </div>
                         </form>
                     </div>

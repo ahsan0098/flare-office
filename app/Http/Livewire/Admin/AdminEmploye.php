@@ -36,15 +36,24 @@ class AdminEmploye extends Component
         $this->permission = new Permissions(); // Loading Permissions Library
 
     }
-    // public function checkPermission($btn, $perm, $type)
-    // {
-    //     $check = $this->permission->hasPermission($perm, $type);
-    //     if (!$check['status']) {
-    //         $this->dispatchBrowserEvent('swal:not_permission', [
-    //             'btn' => $btn,
-    //         ]);
-    //     }
-    // }
+    public function checkPermission($perm, $type, $prop_id = null)
+    {
+        $check = $this->permission->hasPermission($perm, $type);
+        if ($check['status']) {
+            $this->dispatchBrowserEvent('not_permission', [
+                'prop_id' => $prop_id,
+                'title' => "You don't have this permission",
+                'icon' => 'error',
+                'message' => $check['message']
+            ]);
+            return $check['message'];
+        } else {
+            $this->dispatchBrowserEvent('swal:updatepassword', [
+                'icon' => 'warning',
+                'text' => $check['message'],
+            ]);
+        }
+    }
     public function mount()
     {
         $this->employe = User::with('department')->with('position')->get();
@@ -110,31 +119,38 @@ class AdminEmploye extends Component
     }
     public function Edit($id)
     {
-        $user = User::find($id);
-        $this->edit_id = $user->id;
-        $this->edit_name = $user->name;
-        $this->edit_email = $user->email;
-        $this->edit_password = $user->password;
-        $this->edit_department = $user->department_id;
-        $this->edit_position = $user->sub_department_id;
-        $this->edit_salary = $user->salary;
+        $check = $this->checkPermission('user', 'edit', '#edit_employe');
+        if ($check) {
+            $user = User::find($id);
+            $this->edit_id = $user->id;
+            $this->edit_name = $user->name;
+            $this->edit_email = $user->email;
+            $this->edit_password = $user->password;
+            $this->edit_department = $user->department_id;
+            $this->edit_position = $user->sub_department_id;
+            $this->edit_salary = $user->salary;
+        }
     }
     public function choseDelete($id)
     {
-        $this->dispatchBrowserEvent('swal:confirmDelete', [
-            'title' => 'Are you sure?',
-            'text' => "You won't be able to revert this!",
-            'icon' => 'warning',
-            'showCancelButton' => true,
-            'confirmButtonColor' => '#3085d6',
-            'cancelButtonColor' => '#d33',
-            'confirmButtonText' => 'Yes, Delete!',
-            'id' => $id,
+        $check = $this->checkPermission('user', 'delete');
+        if ($check) {
+            $this->dispatchBrowserEvent('swal:confirmDelete', [
+                'title' => 'Are you sure?',
+                'text' => "You won't be able to revert this!",
+                'icon' => 'warning',
+                'showCancelButton' => true,
+                'confirmButtonColor' => '#3085d6',
+                'cancelButtonColor' => '#d33',
+                'confirmButtonText' => 'Yes, Delete!',
+                'id' => $id,
 
-        ]);
+            ]);
+        }
     }
     public function deleteEmp($id)
     {
+
         $user = User::with('employe')->with('sender')->with('receiver')->where('id', $id);
         if ($user->delete()) {
             $this->dispatchBrowserEvent('swal:add_employes', [
@@ -145,22 +161,25 @@ class AdminEmploye extends Component
     }
     public function deactivate($emp_id)
     {
-        $user = User::find($emp_id);
-        $user->status = !($user->status);
-        $msg = '';
-        $icon = '';
-        if ($user->status) {
-            $msg = 'Success! Employe activated.';
-            $icon = 'success';
-        } else {
-            $msg = 'Success! Employe deactivated.';
-            $icon = 'warning';
-        }
-        if ($user->save()) {
-            $this->dispatchBrowserEvent('swal:add_employes', [
-                'icon' => $icon,
-                'text' => $msg,
-            ]);
+        $check = $this->checkPermission('user', 'delete');
+        if ($check) {
+            $user = User::find($emp_id);
+            $user->status = !($user->status);
+            $msg = '';
+            $icon = '';
+            if ($user->status) {
+                $msg = 'Success! Employe activated.';
+                $icon = 'success';
+            } else {
+                $msg = 'Success! Employe deactivated.';
+                $icon = 'warning';
+            }
+            if ($user->save()) {
+                $this->dispatchBrowserEvent('swal:add_employes', [
+                    'icon' => $icon,
+                    'text' => $msg,
+                ]);
+            }
         }
     }
     public function UpdateEmploye()

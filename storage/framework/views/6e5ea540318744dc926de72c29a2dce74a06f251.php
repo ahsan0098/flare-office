@@ -3,14 +3,14 @@
         <div class="login-logo">
             <a href="" wire:click.prevent="Login"><b>Software Flare</b><small> Ltd</small></a>
             <?php if(Session::has('failed')): ?>
-            <div class="alert alert-danger"><?php echo e(session()->get('failed')); ?></div>
+                <div class="alert alert-danger"><?php echo e(session()->get('failed')); ?></div>
             <?php endif; ?>
         </div>
         <!-- /.login-logo -->
         <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Login Form</h3>
-            </div> 
+            </div>
             <!-- /.card-header -->
             <!-- form start -->
             <form method="POST" wire:submit.prevent="Login">
@@ -34,7 +34,7 @@ unset($__errorArgs, $__bag); ?>
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" name="password" wire:model="password" class="form-control"
                             id="exampleInputPassword1" placeholder="Password">
-                        <?php $__errorArgs = ['email'];
+                        <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
